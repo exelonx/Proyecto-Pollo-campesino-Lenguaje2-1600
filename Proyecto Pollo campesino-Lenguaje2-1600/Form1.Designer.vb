@@ -37,6 +37,7 @@ Partial Class Form1
         Me.rb_MitadP = New System.Windows.Forms.RadioButton()
         Me.rb_PolloEntero = New System.Windows.Forms.RadioButton()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.ckb_Ninguno = New System.Windows.Forms.CheckBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -49,8 +50,10 @@ Partial Class Form1
         Me.cmb_Presentacion = New System.Windows.Forms.ComboBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.Label21 = New System.Windows.Forms.Label()
         Me.txt_Total = New System.Windows.Forms.TextBox()
         Me.txt_Impuesto = New System.Windows.Forms.TextBox()
+        Me.txt_Envio = New System.Windows.Forms.TextBox()
         Me.txt_Desc = New System.Windows.Forms.TextBox()
         Me.txt_SubTotal = New System.Windows.Forms.TextBox()
         Me.txt_Cantidad = New System.Windows.Forms.TextBox()
@@ -73,11 +76,10 @@ Partial Class Form1
         Me.lb_Pedido = New System.Windows.Forms.ListBox()
         Me.lb_Factura = New System.Windows.Forms.ListBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.ckb_Ninguno = New System.Windows.Forms.CheckBox()
+        Me.btn_Salir = New System.Windows.Forms.Button()
+        Me.btn_Eliminar = New System.Windows.Forms.Button()
+        Me.btn_Agregar = New System.Windows.Forms.Button()
+        Me.btn_Calcular = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
@@ -249,6 +251,16 @@ Partial Class Form1
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Extras"
         '
+        'ckb_Ninguno
+        '
+        Me.ckb_Ninguno.AutoSize = True
+        Me.ckb_Ninguno.Location = New System.Drawing.Point(6, 89)
+        Me.ckb_Ninguno.Name = "ckb_Ninguno"
+        Me.ckb_Ninguno.Size = New System.Drawing.Size(66, 17)
+        Me.ckb_Ninguno.TabIndex = 6
+        Me.ckb_Ninguno.Text = "Ninguno"
+        Me.ckb_Ninguno.UseVisualStyleBackColor = True
+        '
         'Label6
         '
         Me.Label6.AutoSize = True
@@ -361,8 +373,10 @@ Partial Class Form1
         '
         'GroupBox4
         '
+        Me.GroupBox4.Controls.Add(Me.Label21)
         Me.GroupBox4.Controls.Add(Me.txt_Total)
         Me.GroupBox4.Controls.Add(Me.txt_Impuesto)
+        Me.GroupBox4.Controls.Add(Me.txt_Envio)
         Me.GroupBox4.Controls.Add(Me.txt_Desc)
         Me.GroupBox4.Controls.Add(Me.txt_SubTotal)
         Me.GroupBox4.Controls.Add(Me.txt_Cantidad)
@@ -380,9 +394,18 @@ Partial Class Form1
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Calculos"
         '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Location = New System.Drawing.Point(16, 137)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(37, 13)
+        Me.Label21.TabIndex = 13
+        Me.Label21.Text = "Envio:"
+        '
         'txt_Total
         '
-        Me.txt_Total.Location = New System.Drawing.Point(118, 154)
+        Me.txt_Total.Location = New System.Drawing.Point(118, 157)
         Me.txt_Total.Name = "txt_Total"
         Me.txt_Total.ReadOnly = True
         Me.txt_Total.Size = New System.Drawing.Size(100, 20)
@@ -391,16 +414,25 @@ Partial Class Form1
         '
         'txt_Impuesto
         '
-        Me.txt_Impuesto.Location = New System.Drawing.Point(118, 126)
+        Me.txt_Impuesto.Location = New System.Drawing.Point(118, 111)
         Me.txt_Impuesto.Name = "txt_Impuesto"
         Me.txt_Impuesto.ReadOnly = True
         Me.txt_Impuesto.Size = New System.Drawing.Size(100, 20)
         Me.txt_Impuesto.TabIndex = 10
         Me.txt_Impuesto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
+        'txt_Envio
+        '
+        Me.txt_Envio.Location = New System.Drawing.Point(118, 134)
+        Me.txt_Envio.Name = "txt_Envio"
+        Me.txt_Envio.ReadOnly = True
+        Me.txt_Envio.Size = New System.Drawing.Size(100, 20)
+        Me.txt_Envio.TabIndex = 12
+        Me.txt_Envio.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
         'txt_Desc
         '
-        Me.txt_Desc.Location = New System.Drawing.Point(118, 100)
+        Me.txt_Desc.Location = New System.Drawing.Point(118, 88)
         Me.txt_Desc.Name = "txt_Desc"
         Me.txt_Desc.ReadOnly = True
         Me.txt_Desc.Size = New System.Drawing.Size(100, 20)
@@ -409,7 +441,7 @@ Partial Class Form1
         '
         'txt_SubTotal
         '
-        Me.txt_SubTotal.Location = New System.Drawing.Point(118, 73)
+        Me.txt_SubTotal.Location = New System.Drawing.Point(118, 65)
         Me.txt_SubTotal.Name = "txt_SubTotal"
         Me.txt_SubTotal.ReadOnly = True
         Me.txt_SubTotal.Size = New System.Drawing.Size(100, 20)
@@ -418,7 +450,7 @@ Partial Class Form1
         '
         'txt_Cantidad
         '
-        Me.txt_Cantidad.Location = New System.Drawing.Point(118, 46)
+        Me.txt_Cantidad.Location = New System.Drawing.Point(118, 42)
         Me.txt_Cantidad.Name = "txt_Cantidad"
         Me.txt_Cantidad.Size = New System.Drawing.Size(100, 20)
         Me.txt_Cantidad.TabIndex = 7
@@ -436,7 +468,7 @@ Partial Class Form1
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(10, 157)
+        Me.Label15.Location = New System.Drawing.Point(16, 160)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(73, 13)
         Me.Label15.TabIndex = 5
@@ -445,7 +477,7 @@ Partial Class Form1
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(10, 76)
+        Me.Label14.Location = New System.Drawing.Point(16, 68)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(53, 13)
         Me.Label14.TabIndex = 4
@@ -454,7 +486,7 @@ Partial Class Form1
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(10, 129)
+        Me.Label13.Location = New System.Drawing.Point(16, 114)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(53, 13)
         Me.Label13.TabIndex = 3
@@ -463,7 +495,7 @@ Partial Class Form1
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(10, 103)
+        Me.Label12.Location = New System.Drawing.Point(16, 91)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(62, 13)
         Me.Label12.TabIndex = 2
@@ -472,7 +504,7 @@ Partial Class Form1
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(10, 49)
+        Me.Label11.Location = New System.Drawing.Point(16, 45)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(52, 13)
         Me.Label11.TabIndex = 1
@@ -481,7 +513,7 @@ Partial Class Form1
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(10, 22)
+        Me.Label3.Location = New System.Drawing.Point(16, 22)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(40, 13)
         Me.Label3.TabIndex = 0
@@ -511,9 +543,9 @@ Partial Class Form1
         Me.Label20.AutoSize = True
         Me.Label20.Location = New System.Drawing.Point(542, 20)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(42, 13)
+        Me.Label20.Size = New System.Drawing.Size(67, 13)
         Me.Label20.TabIndex = 12
-        Me.Label20.Text = "Calculo"
+        Me.Label20.Text = "Calculo Final"
         '
         'Label19
         '
@@ -554,6 +586,7 @@ Partial Class Form1
         'lb_Calculo
         '
         Me.lb_Calculo.FormattingEnabled = True
+        Me.lb_Calculo.HorizontalScrollbar = True
         Me.lb_Calculo.Location = New System.Drawing.Point(541, 36)
         Me.lb_Calculo.Name = "lb_Calculo"
         Me.lb_Calculo.Size = New System.Drawing.Size(143, 147)
@@ -562,6 +595,7 @@ Partial Class Form1
         'lb_Envio
         '
         Me.lb_Envio.FormattingEnabled = True
+        Me.lb_Envio.HorizontalScrollbar = True
         Me.lb_Envio.Location = New System.Drawing.Point(392, 36)
         Me.lb_Envio.Name = "lb_Envio"
         Me.lb_Envio.Size = New System.Drawing.Size(143, 147)
@@ -570,6 +604,7 @@ Partial Class Form1
         'lb_Extras
         '
         Me.lb_Extras.FormattingEnabled = True
+        Me.lb_Extras.HorizontalScrollbar = True
         Me.lb_Extras.Location = New System.Drawing.Point(243, 36)
         Me.lb_Extras.Name = "lb_Extras"
         Me.lb_Extras.Size = New System.Drawing.Size(143, 147)
@@ -578,6 +613,7 @@ Partial Class Form1
         'lb_Pedido
         '
         Me.lb_Pedido.FormattingEnabled = True
+        Me.lb_Pedido.HorizontalScrollbar = True
         Me.lb_Pedido.Location = New System.Drawing.Point(94, 36)
         Me.lb_Pedido.Name = "lb_Pedido"
         Me.lb_Pedido.Size = New System.Drawing.Size(143, 147)
@@ -586,6 +622,7 @@ Partial Class Form1
         'lb_Factura
         '
         Me.lb_Factura.FormattingEnabled = True
+        Me.lb_Factura.HorizontalScrollbar = True
         Me.lb_Factura.Location = New System.Drawing.Point(7, 36)
         Me.lb_Factura.Name = "lb_Factura"
         Me.lb_Factura.Size = New System.Drawing.Size(81, 147)
@@ -593,60 +630,50 @@ Partial Class Form1
         '
         'Panel1
         '
-        Me.Panel1.Controls.Add(Me.Button4)
-        Me.Panel1.Controls.Add(Me.Button3)
-        Me.Panel1.Controls.Add(Me.Button2)
-        Me.Panel1.Controls.Add(Me.Button1)
+        Me.Panel1.Controls.Add(Me.btn_Salir)
+        Me.Panel1.Controls.Add(Me.btn_Eliminar)
+        Me.Panel1.Controls.Add(Me.btn_Agregar)
+        Me.Panel1.Controls.Add(Me.btn_Calcular)
         Me.Panel1.Location = New System.Drawing.Point(247, 154)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(456, 149)
         Me.Panel1.TabIndex = 5
         '
-        'Button4
+        'btn_Salir
         '
-        Me.Button4.Location = New System.Drawing.Point(3, 111)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(450, 37)
-        Me.Button4.TabIndex = 3
-        Me.Button4.Text = "Salir"
-        Me.Button4.UseVisualStyleBackColor = True
+        Me.btn_Salir.Location = New System.Drawing.Point(3, 111)
+        Me.btn_Salir.Name = "btn_Salir"
+        Me.btn_Salir.Size = New System.Drawing.Size(450, 37)
+        Me.btn_Salir.TabIndex = 3
+        Me.btn_Salir.Text = "Salir"
+        Me.btn_Salir.UseVisualStyleBackColor = True
         '
-        'Button3
+        'btn_Eliminar
         '
-        Me.Button3.Location = New System.Drawing.Point(3, 75)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(450, 37)
-        Me.Button3.TabIndex = 2
-        Me.Button3.Text = "Eliminar"
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.btn_Eliminar.Location = New System.Drawing.Point(3, 75)
+        Me.btn_Eliminar.Name = "btn_Eliminar"
+        Me.btn_Eliminar.Size = New System.Drawing.Size(450, 37)
+        Me.btn_Eliminar.TabIndex = 2
+        Me.btn_Eliminar.Text = "Eliminar"
+        Me.btn_Eliminar.UseVisualStyleBackColor = True
         '
-        'Button2
+        'btn_Agregar
         '
-        Me.Button2.Location = New System.Drawing.Point(3, 39)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(450, 37)
-        Me.Button2.TabIndex = 1
-        Me.Button2.Text = "Agregar"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.btn_Agregar.Location = New System.Drawing.Point(3, 39)
+        Me.btn_Agregar.Name = "btn_Agregar"
+        Me.btn_Agregar.Size = New System.Drawing.Size(450, 37)
+        Me.btn_Agregar.TabIndex = 1
+        Me.btn_Agregar.Text = "Agregar"
+        Me.btn_Agregar.UseVisualStyleBackColor = True
         '
-        'Button1
+        'btn_Calcular
         '
-        Me.Button1.Location = New System.Drawing.Point(3, 3)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(450, 37)
-        Me.Button1.TabIndex = 0
-        Me.Button1.Text = "Calcular"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'ckb_Ninguno
-        '
-        Me.ckb_Ninguno.AutoSize = True
-        Me.ckb_Ninguno.Location = New System.Drawing.Point(6, 89)
-        Me.ckb_Ninguno.Name = "ckb_Ninguno"
-        Me.ckb_Ninguno.Size = New System.Drawing.Size(66, 17)
-        Me.ckb_Ninguno.TabIndex = 6
-        Me.ckb_Ninguno.Text = "Ninguno"
-        Me.ckb_Ninguno.UseVisualStyleBackColor = True
+        Me.btn_Calcular.Location = New System.Drawing.Point(3, 3)
+        Me.btn_Calcular.Name = "btn_Calcular"
+        Me.btn_Calcular.Size = New System.Drawing.Size(450, 37)
+        Me.btn_Calcular.TabIndex = 0
+        Me.btn_Calcular.Text = "Calcular"
+        Me.btn_Calcular.UseVisualStyleBackColor = True
         '
         'Form1
         '
@@ -730,9 +757,11 @@ Partial Class Form1
     Friend WithEvents Label17 As Label
     Friend WithEvents Label16 As Label
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents Button4 As Button
-    Friend WithEvents Button3 As Button
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Button1 As Button
+    Friend WithEvents btn_Salir As Button
+    Friend WithEvents btn_Eliminar As Button
+    Friend WithEvents btn_Agregar As Button
+    Friend WithEvents btn_Calcular As Button
     Friend WithEvents ckb_Ninguno As CheckBox
+    Friend WithEvents txt_Envio As TextBox
+    Friend WithEvents Label21 As Label
 End Class
