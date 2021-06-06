@@ -12,7 +12,7 @@
         lb_Envio.Items.RemoveAt(indice)
         lb_Extras.Items.RemoveAt(indice)
         lb_Factura.Items.RemoveAt(indice)
-        lb_Pedido.Items.RemoveAt(indice)
+        lb_Calculo.Items.RemoveAt(indice)
     End Sub
     Public Sub habilitarExtras(ninguno As CheckBox, extra1 As CheckBox, extra2 As CheckBox, extra3 As CheckBox)
         If extra1.Checked = True Or extra2.Checked = True Or extra3.Checked = True Then
@@ -261,8 +261,38 @@
             Pedido.precio = 0
             Pedido.porcion = 0
             Pedido.presentacion = 0
+            'Aumentamos el contador de factura
+            Pedido.nFactura += 1
+            txt_Factura.Text = Pedido.nFactura
         End If
 
     End Sub
 
+    Private Sub lb_Factura_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lb_Factura.SelectedIndexChanged
+        seleccionarLB(lb_Factura.SelectedIndex)
+    End Sub
+
+    Private Sub lb_Pedido_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lb_Pedido.SelectedIndexChanged
+        seleccionarLB(lb_Pedido.SelectedIndex)
+    End Sub
+
+    Private Sub lb_Extras_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lb_Extras.SelectedIndexChanged
+        seleccionarLB(lb_Extras.SelectedIndex)
+    End Sub
+
+    Private Sub lb_Envio_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lb_Envio.SelectedIndexChanged
+        seleccionarLB(lb_Envio.SelectedIndex)
+    End Sub
+
+    Private Sub lb_Calculo_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lb_Calculo.SelectedIndexChanged
+        seleccionarLB(lb_Calculo.SelectedIndex)
+    End Sub
+
+    Private Sub btn_Eliminar_Click(sender As Object, e As EventArgs) Handles btn_Eliminar.Click
+        If lb_Calculo.SelectedIndex <> -1 Then
+            eliminarSeleccion(lb_Calculo.SelectedIndex)
+        Else
+            MessageBox.Show("Elemento sin seleccionar, seleccione uno.", "Falta Requisitos")
+        End If
+    End Sub
 End Class
