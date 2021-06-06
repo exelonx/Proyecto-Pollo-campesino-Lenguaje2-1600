@@ -1,5 +1,22 @@
-﻿Public Class Form1
-    'Procedimientos
+﻿'*********************************************************************************************************************************
+'**	Hecho por: Kevin Cubas aka Exelon *******   PROYECTO: Pollo Campesino                                        *****************     
+'***                                   *******   Fecha de creación: 06/06/2021         	                          ****************							
+'**** Contacto: Kevincubas@unah.hn      *******	  Última modificación: 06/06/2021                                  ***************   
+'*****   		 Kevin.otaku@hotmail.com *******   Análisis: Recibe un nombre, tipo de porción, presentacion        **************			
+'******	  	      33598469                *******			  tipo de envio, extras y cantidad para calcular el total*************							
+'*******	        		               *******			   tiene que tener opción de salida LB                    ************							
+'*********************************************************************************************************************************
+Public Class Form1
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Pedido.nFactura = 0
+        txt_Factura.Text = Pedido.nFactura
+    End Sub
+
+    '******************************************Constructor de clase******************************************'
+    Dim Pedido As New Pedido()
+
+    '*********************************************Procedimientos*********************************************'
+    'Procedimiento para hacer multiples selecciones de salidas
     Public Sub seleccionarLB(indice As Integer)
         lb_Calculo.SelectedIndex = indice
         lb_Envio.SelectedIndex = indice
@@ -7,6 +24,8 @@
         lb_Factura.SelectedIndex = indice
         lb_Pedido.SelectedIndex = indice
     End Sub
+
+    'Procedimiento para eliminar las selecciones de salida
     Public Sub eliminarSeleccion(indice As Integer)
         lb_Pedido.Items.RemoveAt(indice)
         lb_Envio.Items.RemoveAt(indice)
@@ -14,6 +33,8 @@
         lb_Factura.Items.RemoveAt(indice)
         lb_Calculo.Items.RemoveAt(indice)
     End Sub
+
+    'Procedimiento para bloquear checkbox contrarios
     Public Sub habilitarExtras(ninguno As CheckBox, extra1 As CheckBox, extra2 As CheckBox, extra3 As CheckBox)
         If extra1.Checked = True Or extra2.Checked = True Or extra3.Checked = True Then
             ninguno.Enabled = False
@@ -21,6 +42,8 @@
             ninguno.Enabled = True
         End If
     End Sub
+
+    'Procedimiento para almacenar nombres de los checkbox extras
     Public Sub nombExtras(ckb As CheckBox, op As Single)
         Select Case op
             Case 0
@@ -43,9 +66,8 @@
                 End If
         End Select
     End Sub
-    'Creo instancia de la clase Pedido
-    Dim Pedido As New Pedido()
 
+    '*********************************************RadioButtons*********************************************'
     Private Sub rb_UnCuarto_CheckedChanged(sender As Object, e As EventArgs) Handles rb_UnCuarto.CheckedChanged
         Pedido.seleccionPorcion(50)
         txt_Precio.Text = Format(Pedido.precio, "0.00")
@@ -58,16 +80,29 @@
         Pedido.nombrePorcion = "Mitad de pollo"
     End Sub
 
-    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Pedido.nFactura = 0
-        txt_Factura.Text = Pedido.nFactura
-    End Sub
     Private Sub rb_PolloEntero_CheckedChanged(sender As Object, e As EventArgs) Handles rb_PolloEntero.CheckedChanged
         Pedido.seleccionPorcion(150)
         txt_Precio.Text = Format(Pedido.precio, "0.00")
         Pedido.nombrePorcion = "Pollo entero"
     End Sub
 
+    Private Sub rb_Urbano_CheckedChanged(sender As Object, e As EventArgs) Handles rb_Urbano.CheckedChanged
+        If rb_Urbano.Checked = True Then
+            Pedido.seleccionEnvio(100)
+            txt_Envio.Text = Format(Pedido.tipoEnvio, "0.00")
+            Pedido.nombEnvio = "Zona urbana L100"
+        End If
+    End Sub
+
+    Private Sub rb_OtrasZ_CheckedChanged(sender As Object, e As EventArgs) Handles rb_OtrasZ.CheckedChanged
+        If rb_OtrasZ.Checked = True Then
+            Pedido.seleccionEnvio(150)
+            txt_Envio.Text = Format(Pedido.tipoEnvio, "0.00")
+            Pedido.nombEnvio = "Otras zonas L150"
+        End If
+    End Sub
+
+    '*********************************************CheckBoxs*********************************************'
     Private Sub ckb_Ensalada_CheckedChanged(sender As Object, e As EventArgs) Handles ckb_Ensalada.CheckedChanged
         Pedido.seleccionExtra(60, ckb_Ensalada)
         habilitarExtras(ckb_Ninguno, ckb_Ensalada, ckb_Tajadas, ckb_Chile)
@@ -89,6 +124,21 @@
         nombExtras(ckb_Chile, 2)
     End Sub
 
+    Private Sub ckb_Ninguno_CheckedChanged(sender As Object, e As EventArgs) Handles ckb_Ninguno.CheckedChanged
+        Pedido.seleccionExtra(0, ckb_Ninguno)
+        If ckb_Ninguno.Checked = True Then      'si se marca, las demas opciones se bloquearan
+            ckb_Chile.Enabled = False
+            ckb_Ensalada.Enabled = False
+            ckb_Tajadas.Enabled = False
+        Else
+            ckb_Chile.Enabled = True            'Si se desmarca, se desbloquearan las opciones bloqueadas
+            ckb_Ensalada.Enabled = True
+            ckb_Tajadas.Enabled = True
+        End If
+        txt_Precio.Text = Format(Pedido.precio, "0.00")
+    End Sub
+
+    '*********************************************TextBoxs*********************************************'
     Private Sub txt_NomCliente_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txt_NomCliente.KeyPress
         'Validar que solo acepte letras
         If Char.IsLetter(e.KeyChar) Then
@@ -115,6 +165,8 @@
         End If
     End Sub
 
+    '*********************************************ComboBox*********************************************'
+    'Selección de opciones
     Private Sub cmb_Presentacion_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmb_Presentacion.SelectedIndexChanged
         Select Case cmb_Presentacion.SelectedIndex
             Case 0
@@ -126,35 +178,18 @@
                 Pedido.nombrePresentacion = "asado"
                 txt_Precio.Text = Format(Pedido.precio, "0.00")
         End Select
-
     End Sub
 
+    'Validación de entrada de datos
     Private Sub cmb_Presentacion_KeyPress(sender As Object, e As KeyPressEventArgs) Handles cmb_Presentacion.KeyPress
         'Valida que no se puedan ingresar datos al ComboBox
         e.Handled = True
     End Sub
 
-    Private Sub rb_Urbano_CheckedChanged(sender As Object, e As EventArgs) Handles rb_Urbano.CheckedChanged
-        If rb_Urbano.Checked = True Then
-            Pedido.seleccionEnvio(100)
-            txt_Envio.Text = Format(Pedido.tipoEnvio, "0.00")
-            Pedido.nombEnvio = "Zona urbana L100"
-        End If
-
-    End Sub
-
-    Private Sub rb_OtrasZ_CheckedChanged(sender As Object, e As EventArgs) Handles rb_OtrasZ.CheckedChanged
-        If rb_OtrasZ.Checked = True Then
-            Pedido.seleccionEnvio(150)
-            txt_Envio.Text = Format(Pedido.tipoEnvio, "0.00")
-            Pedido.nombEnvio = "Otras zonas L150"
-        End If
-
-    End Sub
-
+    '***********************************************Buttons***********************************************'
     Private Sub btn_Calcular_Click(sender As Object, e As EventArgs) Handles btn_Calcular.Click
         'Validaciones
-        Pedido.nombExtras = Nothing
+        Pedido.nombExtras = Nothing             'Reinicia concatenación
         If txt_NomCliente.Text = Nothing Then
             MessageBox.Show("Casilla vacia, ingrese nombre del cliente.", "Falta Requisito")
             Exit Sub
@@ -178,13 +213,13 @@
         Pedido.cantidad = txt_Cantidad.Text
         Pedido.subTotal = (Pedido.porcion + Pedido.extra + Pedido.presentacion) * Pedido.cantidad
         txt_SubTotal.Text = Format(Pedido.subTotal, "0.00")
-        Pedido.setDescuento(ckb_Membresia)  'calcula descuento
+        Pedido.setDescuento(ckb_Membresia)      'calcula descuento
         txt_Desc.Text = Format(Pedido.descuento, "0.00")
         Pedido.impuesto = (Pedido.subTotal - Pedido.descuento) * 0.15
         txt_Impuesto.Text = Format(Pedido.impuesto, "0.00")
         Pedido.total = Pedido.subTotal - Pedido.descuento + Pedido.impuesto + Pedido.tipoEnvio
         txt_Total.Text = Format(Pedido.total, "0.00")
-        'Guardar nombres para imprimir extras
+        'Concatena en base a la selección de extras para guardar nombres para imprimir extras
         If Pedido.nombEnsalada <> "" Then
             Pedido.nombExtras += Pedido.nombEnsalada
         End If
@@ -205,21 +240,6 @@
         If Pedido.nombExtras = "" Then
             Pedido.nombExtras = "Ninguno"
         End If
-
-    End Sub
-
-    Private Sub ckb_Ninguno_CheckedChanged(sender As Object, e As EventArgs) Handles ckb_Ninguno.CheckedChanged
-        Pedido.seleccionExtra(0, ckb_Ninguno)
-        If ckb_Ninguno.Checked = True Then
-            ckb_Chile.Enabled = False
-            ckb_Ensalada.Enabled = False
-            ckb_Tajadas.Enabled = False
-        Else
-            ckb_Chile.Enabled = True
-            ckb_Ensalada.Enabled = True
-            ckb_Tajadas.Enabled = True
-        End If
-        txt_Precio.Text = Format(Pedido.precio, "0.00")
     End Sub
 
     Private Sub btn_Salir_Click(sender As Object, e As EventArgs) Handles btn_Salir.Click
@@ -268,6 +288,15 @@
 
     End Sub
 
+    Private Sub btn_Eliminar_Click(sender As Object, e As EventArgs) Handles btn_Eliminar.Click
+        If lb_Calculo.SelectedIndex <> -1 Then
+            eliminarSeleccion(lb_Calculo.SelectedIndex)
+        Else
+            MessageBox.Show("Elemento sin seleccionar, seleccione uno.", "Falta Requisitos")
+        End If
+    End Sub
+
+    '********************************************************ListBox*******************************************************'
     Private Sub lb_Factura_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lb_Factura.SelectedIndexChanged
         seleccionarLB(lb_Factura.SelectedIndex)
     End Sub
@@ -286,13 +315,5 @@
 
     Private Sub lb_Calculo_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lb_Calculo.SelectedIndexChanged
         seleccionarLB(lb_Calculo.SelectedIndex)
-    End Sub
-
-    Private Sub btn_Eliminar_Click(sender As Object, e As EventArgs) Handles btn_Eliminar.Click
-        If lb_Calculo.SelectedIndex <> -1 Then
-            eliminarSeleccion(lb_Calculo.SelectedIndex)
-        Else
-            MessageBox.Show("Elemento sin seleccionar, seleccione uno.", "Falta Requisitos")
-        End If
     End Sub
 End Class

@@ -1,5 +1,5 @@
 ﻿Public Class Pedido
-    'Atributos
+    '******************************************Atributos******************************************'
     Public nFactura As Integer
     Public porcion As Integer
     Public presentacion As Integer
@@ -7,7 +7,7 @@
     Public extra As Integer
     Public nombrePorcion, nombrePresentacion, nombEnsalada, nombTajadas, nombChile, nombExtras, nombEnvio As String
     Public precio, cantidad, subTotal, descuento, impuesto, total As Double
-    'Metodos
+    '*******************************************Metodos******************************************'
     Public Sub seleccionPorcion(precioPorcion As Integer)
         If Me.porcion > 0 Then
             Me.precio -= Me.porcion
